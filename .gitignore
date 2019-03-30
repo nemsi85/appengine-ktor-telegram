@@ -4,5 +4,6 @@
 build
 out
 *.jar
+*.iml
 
 src/main/kotlin/config/MyConfig.kt
