@@ -2,20 +2,19 @@ package com.github.jacklt.gae.ktor.tg
 
 fun main() = startApp()
 
-var old: Int? = null
-
 fun myApp(input: String): String {
-    val addendo1: Int? = input.toIntOrNull()
-    if (addendo1 != null) {
-        if (old != null) {
-            val risultato: Int = old!! + addendo1
-          old = null
-            return "Il tuo risultato è $risultato"
-        } else {
-            old = addendo1
-            return "Inserisci il secondo numero"
-        }
-    } else {
-        return "Il tuo input non è valido"
+    return when (input.toLowerCase()) {
+        "film",
+        "films" -> movieList()
+        else -> "Il tuo comando non è corretto"
     }
 }
+
+fun movieList(): String {
+    val titleList = movieList.joinToString("\n") {
+        val actorList = it.pg.joinToString { it.name }
+        "${it.title}:\n * $actorList"
+    }
+    return "Questo è l'elenco dei film\n$titleList"
+}
+
