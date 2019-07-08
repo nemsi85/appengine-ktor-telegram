@@ -5,10 +5,10 @@ data class Movie(
     val director: Director,
     val year: Int,
     val genre: Genre,
-    val pg: List<Cast>
+    val cast: List<Pg>
 )
 
-interface Cast{
+interface Pg{
     val name: String
 }
 interface Persona {
@@ -27,5 +27,5 @@ enum class Genre {
     HORROR, ROMANTICO, COMMEDIA, DRAMA
 }
 
-data class Actor(override val name: String, override val sex: Sex, val role: String) : Cast, Persona
-data class Robot(override val name: String, val role: String) : Cast
+data class Actor(override val name: String, override val sex: Sex, val role: String) : Pg, Persona
+data class Robot(override val name: String, val role: String) : Pg
