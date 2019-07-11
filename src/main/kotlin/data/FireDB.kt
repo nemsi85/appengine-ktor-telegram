@@ -7,7 +7,7 @@ import kotlinx.serialization.serializer
 
 
 object FireDB : FirebaseDatabaseApi() {
-    override val basePath = "https://gdglevante.firebaseio.com/"
+    override val basePath = "https://cvdicv.firebaseio.com/"
 
     var testString by fireProperty(String.serializer())
     var lastMessage by fireProperty(Message.serializer())
