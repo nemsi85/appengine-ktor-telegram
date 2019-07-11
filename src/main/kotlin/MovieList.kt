@@ -8,7 +8,7 @@ val movieList = listOf(
         Genre.DRAMA,
         listOf(
             Actor("Brad Pitt", Sex.MALE, "Protagonista"),
-            Actor("Waltz", Sex.MALE, role = "Cattivo"),
+            Actor("Christopher Waltz", Sex.MALE, role = "Cattivo"),
             Actor("Fassy", Sex.MALE, role = "Infiltrato")
         )
     ),
@@ -19,9 +19,10 @@ val movieList = listOf(
         Genre.COMMEDIA,
         listOf(
             Actor("Radcliffe", Sex.MALE, "Protagonista"),
-            Actor("Grint", Sex.MALE, role = "Idiota"),
-            Actor("Watson", Sex.FEMALE, role = "La salvezza dei 2 cretini"),
-            Robot("Voldemort", "Doppiogiochista")
+            Actor("Rupert Grint", Sex.NOT_DEFINED, role = "Idiota"),
+            Actor("Emma Watson", Sex.FEMALE, role = "La salvezza dei 2 cretini"),
+            Robot("Voldemort", "Doppiogiochista"),
+            Actor("Brie Larson", Sex.FEMALE, "Protagonista")
         )
     ),
     Movie(
@@ -30,9 +31,9 @@ val movieList = listOf(
         2018,
         Genre.ROMANTICO,
         listOf(
-            Actor("Larson", Sex.FEMALE, "Protagonista"),
+            Actor("Brie Larson", Sex.FEMALE, "Protagonista"),
             Actor("Samuel L Jackson", Sex.MALE, role = "Lo Shield"),
-            Actor("Ben", Sex.MALE, role = "Cattivo"),
+            Actor("Ben Stiller", Sex.MALE, role = "Cattivo"),
             Robot("Goose", "La star")
         )
     )
