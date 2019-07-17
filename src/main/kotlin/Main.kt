@@ -1,6 +1,7 @@
 package com.github.jacklt.gae.ktor.tg
 
 import com.github.jacklt.gae.ktor.tg.appengine.telegram.Message
+import com.github.jacklt.gae.ktor.tg.appengine.telegram.User
 import com.github.jacklt.gae.ktor.tg.data.FireDB
 
 fun main() = startApp()
@@ -15,6 +16,7 @@ fun main() = startApp()
 
 fun myApp(message: Message): String {
     val input = message.text.orEmpty()
+    FireDB.lastMessage = message
     // val name = FireDB.testMap["name"]
     // return "Ciao $input by $name"
 
@@ -31,6 +33,9 @@ fun myApp(message: Message): String {
         "attore",
         "attrici",
         "attori" -> showActors()
+        "chi sono",
+        "chi sono?" -> showUser(message.from)
+        "sono un bot?" -> showBotUser(message.from)
         else -> "Il tuo comando non è corretto"
     }
 }
@@ -89,4 +94,16 @@ fun showActors(): String {
 //    return movieList.joinToString("\n") {
 //        it.director.name
 
+}
+
+fun showUser(user: User?): String {
+    return if (user != null) {
+        "Ciao ${user.first_name}!"
+    } else "ERRORE!!!"
+}
+
+fun showBotUser(user: User?): String {
+    return if (user?.is_bot == false) {
+        "Ciao ${user.first_name}, non sei un bot!"
+    } else "ERRORE! Sei un BOT!"
 }
