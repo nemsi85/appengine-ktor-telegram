@@ -3,12 +3,14 @@ package com.github.jacklt.gae.ktor.tg
 import com.github.jacklt.gae.ktor.tg.appengine.telegram.Message
 import com.github.jacklt.gae.ktor.tg.appengine.telegram.User
 import com.github.jacklt.gae.ktor.tg.data.FireDB
+import kotlinx.serialization.serializer
 
 fun main() = startApp()
 
 fun myApp(message: Message): String {
     val input = message.text.orEmpty()
-    FireDB.lastMessage = message
+
+    // FireDB.lastMessage = message
     // val name = FireDB.testMap["name"]
     // return "Ciao $input by $name"
 
@@ -28,8 +30,43 @@ fun myApp(message: Message): String {
         "chi sono",
         "chi sono?" -> showUser(message.from)
         "sono un bot?" -> showBotUser(message.from)
-        else -> "Il tuo comando non è corretto"
+        //"lista utenti" -> showUserList
+        //"lista comandi" -> showComands
+        //"test" -> "Ho trovato: " + FireDB["lastMessage/chat/first_name", String.serializer()].orEmpty()
+        "colore preferito" -> answerColor(message.from)
+        else -> {
+            if (input.toLowerCase().startsWith("il mio colore preferito è")) {
+                saveColorPref(input, message.from)
+            } else {
+                "Il tuo comando non è corretto"
+            }
+        }
     }
+}
+
+//fun showUserList(input: String, user: User): String{
+//    val userAttuale = if (input.contentEquals("lista utenti")){
+//        FireDB["users/${user?.id ?: 0}", User.serializer()] = showUserList()
+//
+//        return "Questa è la lista degli utenti che hanno usato l'app: $"
+//    }
+//
+//}
+
+fun saveColorPref(input: String, user: User?): String {
+    val userColorPref = input.split(" ").last()
+    FireDB["userColorPref/${user?.id ?: 0}", String.serializer()] = userColorPref
+    return "Grazie ${user?.first_name ?: "Anonimo"}! Me lo ricorderò!"
+}
+
+fun answerColor(user: User?): String {
+    val userColorPref = FireDB["userColorPref/${user?.id ?: 0}", String.serializer()]
+    return if (userColorPref.isNullOrBlank()) {
+        "Non lo so. Vuoi dirmi il tuo colore preferito?"
+    } else {
+        "Ciao ${user?.first_name ?: "Anonimo"}, il tuo colore preferito è: $userColorPref."
+    }
+
 }
 
 fun showMovieList(): String {
